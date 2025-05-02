@@ -1,1 +1,39 @@
-theme: jekyll-theme-cayman
+name: Build and Deploy Jekyll to Vercel
+
+on:
+  push:
+    branches:
+      - main  # or your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1
+
+    - name: Install Jekyll and Bundler
+      run: |
+        gem install bundler jekyll
+
+    - name: Build Jekyll site
+      run: |
+        jekyll build
+
+    - name: Deploy to Vercel
+      run: |
+        cd _site
+        git init
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git remote add origin https://github.com/themagesh/html-css-cheat-sheet-master.git
+        git checkout -b vercel-build
+        git add .
+        git commit -m "Deploy static Jekyll site"
+        git push --force origin vercel-build
