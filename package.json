@@ -1,0 +1,22 @@
+{
+  "name": "html-css-cheat-sheet",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A React + Vite conversion of the HTML5 and CSS cheat sheet Tools page",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "node-html-parser": "^9.0.1",
+    "vite": "^5.4.10"
+  }
+}
