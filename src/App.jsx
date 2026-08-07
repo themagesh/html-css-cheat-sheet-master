@@ -58,10 +58,49 @@ function ScrollManager() {
   return null;
 }
 
+const PAGE_META = {
+  '/': {
+    title: 'HTML & CSS Cheat Sheet — Web Development Reference',
+    description:
+      'A curated visual cheat sheet for HTML5 and CSS web development with live examples of elements, selectors, flexbox, and grid.',
+  },
+  '/animation': {
+    title: 'Animation & Transitions — HTML & CSS Cheat Sheet',
+    description:
+      'CSS transitions, timing functions, and animate.css keyframe animation examples for web developers.',
+  },
+  '/tools': {
+    title: 'Matrix Transform Tools — HTML & CSS Cheat Sheet',
+    description:
+      'Interactive 2D CSS matrix-transform calculator: transform points and multiply transform matrices.',
+  },
+};
+
+/** Updates the document title and meta description on every route change. */
+function PageMeta() {
+  const { pathname } = useLocation();
+  const meta = PAGE_META[pathname] || PAGE_META['/'];
+
+  useEffect(() => {
+    document.title = meta.title;
+
+    let description = document.querySelector('meta[name="description"]');
+    if (!description) {
+      description = document.createElement('meta');
+      description.setAttribute('name', 'description');
+      document.head.appendChild(description);
+    }
+    description.setAttribute('content', meta.description);
+  }, [pathname, meta.title, meta.description]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <ScrollManager />
+      <PageMeta />
       <Nav />
       <Routes>
         <Route path="/" element={<HtmlCssCheatSheet />} />
